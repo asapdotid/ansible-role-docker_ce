@@ -11,7 +11,7 @@ mirror:tag:
     # Launch ssh-agent
     - eval $(ssh-agent -s)
     # Add private key from CI variable
-    - echo "$GH_PRIVATE_KEY" | tr -d '\r' | ssh-add - # > /dev/null
+    - ssh-add <(echo "$GH_PRIVATE_KEY" | base64 -d)
     # Create ~/.ssh folder if not exist
     - mkdir -p ~/.ssh
     # Restrict the folder privilege
