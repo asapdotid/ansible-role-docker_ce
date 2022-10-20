@@ -10,13 +10,13 @@ mirror:tag:
     ## Import SSH key
     # Launch ssh-agent
     - eval $(ssh-agent -s)
-    # Add private key from CI variable
-    - cat ~/.ssh/id_ras | base64 -w0
-    - ssh-add <(echo "$GH_PRIVATE_KEY" | base64 -d)
     # Create ~/.ssh folder if not exist
     - mkdir -p ~/.ssh
     # Restrict the folder privilege
     - chmod 700 ~/.ssh
+    # Add private key from CI variable
+    - echo -n "${GH_PRIVATE_KEY}" | base64 -d > ~/.ssh/id_rsa
+    - chmod 0600 ~/.ssh/id_rsa
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     ## Update GitHub mirror
