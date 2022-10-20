@@ -6,7 +6,7 @@ mirror:tag:
     - if: $CI_COMMIT_TAG != null
   before_script:
     # Install prerequisites
-    - "command -v ssh-agent >/dev/null || (apk update && apk add openssh-client git)"
+    - "command -v ssh-agent >/dev/null || (apk update && apk add openssh-client git bash perl-mime-base64)"
     ## Import SSH key
     # Launch ssh-agent
     - eval $(ssh-agent -s)
