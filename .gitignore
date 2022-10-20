@@ -1,0 +1,4 @@
+*.log
+*.swp
+.cache
+.DS_Store

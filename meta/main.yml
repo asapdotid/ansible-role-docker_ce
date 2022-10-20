@@ -1,0 +1,29 @@
+---
+galaxy_info:
+  author: asapdotid
+  role_name: docker_ce
+  description: Install and configure Docker CE on your system.
+  license: Apache-2.0
+  company: none
+  min_ansible_version: "2.10"
+
+  platforms:
+    - name: Debian
+      versions:
+        - bullseye
+    - name: EL
+      versions:
+        - "8"
+    - name: Fedora
+      versions:
+        - "35"
+        - "36"
+    - name: Ubuntu
+      versions:
+        - all
+
+  galaxy_tags:
+    - dockerce
+    - docker
+
+dependencies: []
