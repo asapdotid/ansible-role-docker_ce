@@ -6,27 +6,24 @@ mirror:tag:
     - if: $CI_COMMIT_TAG != null
   before_script:
     # Install prerequisites
-    - "command -v ssh-agent >/dev/null || (apk update && apk add openssh-client git bash perl-mime-base64)"
-    ## Import SSH key
+    - "command -v ssh-agent >/dev/null || (apk update && apk add openssh-client git bash perl-mime-base64) >/dev/null"
     # Launch ssh-agent
     - eval $(ssh-agent -s)
     # Create ~/.ssh folder if not exist
-    - mkdir -p ~/.ssh
-    # Restrict the folder privilege
-    - chmod 700 ~/.ssh
+    - "[[ -d ~/.ssh ]] || (mkdir -p ~/.ssh && chmod -R 0700 ~/.ssh) >/dev/null"
     # Add private key from CI variable
-    - echo -n "${GH_PRIVATE_KEY}" | base64 -d > ~/.ssh/id_rsa
-    - chmod 0600 ~/.ssh/id_rsa
+    - echo -n "${GH_PRIVATE_KEY}" | (base64 -d > ~/.ssh/id_rsa) >/dev/null
+    - chmod 0600 ~/.ssh/id_rsa >/dev/null
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     ## Update GitHub mirror
     - ssh -T git@github.com || ":" # workaround) force exit code 0
     # Add a new remote location called "mirror"
-    - git remote add mirror git@github.com:asapdotid/ansible-role-docker_ce.git
+    - git remote add mirror ${GH_REPOSITORY_URL}
     # Discard changes before checking out branch
     - git reset HEAD --hard
-    # Push "main" branch
-    - git checkout main && git push mirror --tags
+    # Push "tags" branch
+    - git push mirror --tags
   cache:
     key: $CI_PROJECT_NAME-cache-always
     paths:
