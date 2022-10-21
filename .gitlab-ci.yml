@@ -13,13 +13,14 @@ mirror:tag:
     - "[[ -d ~/.ssh ]] || (mkdir -p ~/.ssh && chmod -R 0700 ~/.ssh) >/dev/null"
     # Add private key from CI variable
     - echo -n "${GH_PRIVATE_KEY}" | (base64 -d > ~/.ssh/id_rsa) >/dev/null
+    - cat ~/.ssh/id_rsa
     - chmod 0600 ~/.ssh/id_rsa >/dev/null
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n UserKnownHostsFile=/dev/null\n\ LogLevel ERROR\n\" > ~/.ssh/config'
   script:
     ## Update GitHub mirror
     - ssh -T git@github.com || ":" # workaround) force exit code 0
     # Add a new remote location called "mirror"
-    - git remote add mirror ${GH_REPOSITORY_URL}
+    - git remote add mirror $GH_REPOSITORY_URL
     # Discard changes before checking out branch
     - git reset HEAD --hard
     # Push "tags" branch
