@@ -9,19 +9,15 @@ mirror:tag:
     DEPLOY_SSH_HOST_SERVER: $SSH_HOST_SERVER
     DEPLOY_SSH_HOST_PRIVATE_KEY: $SSH_PRIVATE_KEY
     DEPLOY_SSH_HOST_PUBLIC_KEY: $SSH_PUBLIC_KEY
-  before_script:
-    - pwd
-    - ls -al .
   script:
-    - ls -al ~/.ssh
     ## Update GitHub mirror
-    # - ssh -T git@github.com || ":" # workaround) force exit code 0
+    - ssh -T git@$SSH_HOST_SERVER || ":" # workaround) force exit code 0
     # Add a new remote location called "mirror"
-    # - git remote add mirror $GH_REPOSITORY_URL
+    - git remote add mirror $GH_REPOSITORY_URL
     # Discard changes before checking out branch
-    # - git reset HEAD --hard
+    - git reset HEAD --hard
     # Push "tags" branch
-    # - git push mirror --tags
+    - git push mirror --tags
   cache:
     key: $CI_PROJECT_NAME-cache-always
     paths:
