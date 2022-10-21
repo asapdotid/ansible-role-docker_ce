@@ -1,16 +1,16 @@
-image: asapdotid/ansible:tools
+image: asapdotid/alpine:latest
 
 mirror:tag:
   stage: deploy
   rules:
     - if: $CI_COMMIT_TAG != null
   variables:
-    DEPLOY_SSH_HOST_SERVER: $SSH_HOST_SERVER
-    DEPLOY_SSH_HOST_PRIVATE_KEY: $SSH_PRIVATE_KEY
-    DEPLOY_SSH_HOST_PUBLIC_KEY: $SSH_PUBLIC_KEY
+    SSH_HOST_TARGET: $SSH_HOST_TARGET
+    SSH_PRIVATE_KEY: $SSH_PRIVATE_KEY
+    SSH_PUBLIC_KEY: $SSH_PUBLIC_KEY
   script:
     ## Update GitHub mirror
-    - ssh -T git@$SSH_HOST_SERVER || ":" # workaround) force exit code 0
+    - ssh -T git@$SSH_HOST_TARGET || ":" # workaround) force exit code 0
     # Add a new remote location called "mirror"
     - git remote add mirror $GIT_REPOSITORY_URL
     # Discard changes before checking out branch
