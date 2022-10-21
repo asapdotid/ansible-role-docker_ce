@@ -7,6 +7,9 @@
 <p align="center" style="font-size: 1.2rem;">
     This ansible role setup install and configure Docker CE on your system.
 </p>
+<p align="center" style="font-size: 1.2rem;">
+    Support <a href="https://docs.docker.com/compose/compose-v2/" target="_blank">Composer V2</a> and the new docker compose command.
+</p>
 
 <p align="center">
   <a href="https://www.ansible.com">
