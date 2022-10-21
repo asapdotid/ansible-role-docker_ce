@@ -14,7 +14,7 @@ mirror:tag:
     # Add a new remote location called "mirror"
     - git remote add mirror $GIT_REPOSITORY_URL
     # Discard changes before checking out branch
-    - git reset HEAD --hard
+    # - git reset HEAD --hard
     # Push "tags" branch
     - git push mirror --tags
   cache:
