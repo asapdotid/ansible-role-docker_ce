@@ -1,5 +1,3 @@
-Install and configure Docker CE on your system.
-
 <p align="center"> <img src="https://user-images.githubusercontent.com/34257858/129839002-15e3f2c7-3f75-46d4-afae-0fd207d7fdde.png" width="100" height="100"></p>
 
 <h1 align="center">
