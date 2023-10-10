@@ -30,7 +30,7 @@
 
 ```yaml
 roles:
-  - name: asapdotid.docker_compose
+  - name: asapdotid.docker_ce
     src: git+https://github.com/asapdotid/ansible-role-docker_ce.git
     scm: git
     version: << change with latest tag >> #sample 1.0.0
