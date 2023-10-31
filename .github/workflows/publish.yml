@@ -5,8 +5,6 @@ on:
   push:
     tags:
       - "*"
-    branches:
-      - main
 
 jobs:
   publish:
@@ -15,7 +13,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Release Ansible Role to Galaxy
         uses: hspaans/ansible-galaxy-action@v1
